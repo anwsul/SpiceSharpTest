@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "spiceSharpTest/1.0.0": {
+        "dependencies": {
+          "ConsolePlot": "0.1.0",
+          "SpiceSharp": "3.2.3"
+        },
+        "runtime": {
+          "spiceSharpTest.dll": {}
+        }
+      },
+      "ConsolePlot/0.1.0": {
+        "runtime": {
+          "lib/netstandard2.0/ConsolePlot.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        }
+      },
+      "SpiceSharp/3.2.3": {
+        "runtime": {
+          "lib/netstandard2.0/SpiceSharp.dll": {
+            "assemblyVersion": "3.2.3.0",
+            "fileVersion": "3.2.3.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "spiceSharpTest/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ConsolePlot/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BOUbzx5R/tV/xYfmqE3pGVi/Hs2loR01RPR/iJNzciIklA6gGxAtdhhTgk6VHW8U2slZKmNGB+QUiBHcX7U5mA==",
+      "path": "consoleplot/0.1.0",
+      "hashPath": "consoleplot.0.1.0.nupkg.sha512"
+    },
+    "SpiceSharp/3.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mQ6jWhq59HDxQklMoOJn1DVmce2oII9zhvt7GTRWjfJTkGSWlgjM7qI0136BqWgHvZsQQkb/1zaaWsrqCKFvoQ==",
+      "path": "spicesharp/3.2.3",
+      "hashPath": "spicesharp.3.2.3.nupkg.sha512"
+    }
+  }
+}

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("spiceSharpTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8faea2ba040c0fa79c83e70a39d041e4a5481d2b")]
 [assembly: System.Reflection.AssemblyProductAttribute("spiceSharpTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("spiceSharpTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

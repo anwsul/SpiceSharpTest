@@ -1,5 +1,6 @@
 using SpiceSharp;
 using SpiceSharp.Components;
+using SpiceSharp.Simulations;
 
 class CircuitManager
 {
@@ -35,8 +36,10 @@ class CircuitManager
         rheostat.Connect("RH_1", "RH_2", "RH_3");
     }
 
-    public void ConnectWire(string wireName, string deviceName, string nodeName)
+    public void ConnectWire(string wireName, string nodeName)
     {
+
+        var deviceName = nodeName.Split('_')[0];
         if (!ckt.Contains(wireName))
         {
             var newWire = new Wire(wireName).Connect(nodeName, $"unconnected_{wireName}_1");
@@ -57,12 +60,14 @@ class CircuitManager
             wire.Connect(newNodes);
         }
 
-        if (!ckt.Contains(nodeName))
+        if (!ckt.Contains(deviceName))
             ckt.Add(deviceNameToDeviceMap[deviceName]);
     }
 
-    public void DisconnectWire(string wireName, string deviceName, string nodeName)
+    public void DisconnectWire(string wireName, string nodeName)
     {
+
+        var deviceName = nodeName.Split('_')[0];
         if (ckt.Contains(wireName))
         {
             Wire wire = (Wire)ckt[wireName];
@@ -82,13 +87,21 @@ class CircuitManager
 
             var device = deviceNameToDeviceMap[deviceName];
             var deviceNodes = device.Nodes;
+            bool isREmoved = ckt.Remove(deviceName);
             var allNodes = FindAllNodes();
-            ckt.Remove(device);
 
+            foreach (var item in allNodes)
+            {
+
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("_____________________");
             foreach (var node in deviceNodes)
             {
-                if (allNodes.Contains(node))
+                if (node != "0" && allNodes.Contains(node))
                 {
+                    Console.WriteLine(isREmoved);
                     ckt.Add(device);
                     break;
                 }
@@ -119,7 +132,34 @@ class CircuitManager
 
     public void TryRunningSimulation()
     {
+        var tran = new Transient("tran1", 0.001, 0.1);
 
+        List<double> times = new();
+        List<double> input = new();
+        List<double> output = new();
+
+        try
+        {
+
+            foreach (var _ in tran.Run(ckt))
+            {
+                times.Add(tran.Time);
+                input.Add(tran.GetVoltage("TPT_P_1"));
+                output.Add(tran.GetVoltage("TPT_S_1"));
+            }
+
+        }
+        catch (ValidationFailedException ex)
+        {
+            Console.WriteLine($"Validation failed with {ex.Rules.ViolationCount} violations:");
+            foreach (var violation in ex.Rules.Violations)
+            {
+                Console.WriteLine($"- {violation.GetType().Name}: {violation}");
+            }
+        }
+
+
+        Plotter.Plot(times, input, output);
     }
 
     public void CalculateRealPower(double voltage, double current)

@@ -16,3 +16,4 @@ C:\Users\ansu\Desktop\unity\SpiceSharpTest\spiceSharpTest\bin\Debug\net9.0\Spice
 C:\Users\ansu\Desktop\unity\SpiceSharpTest\spiceSharpTest\obj\Debug\net9.0\spiceSharpTest.csproj.AssemblyReference.cache
 C:\Users\ansu\Desktop\unity\SpiceSharpTest\spiceSharpTest\obj\Debug\net9.0\spiceSha.02235DF1.Up2Date
 C:\Users\ansu\Desktop\unity\SpiceSharpTest\spiceSharpTest\bin\Debug\net9.0\ConsolePlot.dll
+C:\Users\ansu\Desktop\unity\SpiceSharpTest\spiceSharpTest\obj\Debug\net9.0\spiceSharpTest.sourcelink.json

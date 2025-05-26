@@ -1,15 +1,14 @@
 using ConsolePlot;
 
-class Plotter
-{
-
-
-    public static void Plot(List<double> times, List<double> input, List<double> output)
-    {
+class Plotter {
+    public static void Plot(List<double> times, List<List<double>> inputs) {
         Console.WriteLine("\n\n");
         Plot plot = new Plot(80, 22);
-        plot.AddSeries(times, input);
-        plot.AddSeries(times, output);
+
+        foreach (var input in inputs) {
+            plot.AddSeries(times, input);
+        }
+
         plot.Draw();
         plot.Render();
 

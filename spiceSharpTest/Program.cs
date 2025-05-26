@@ -1,26 +1,32 @@
-﻿var wire1 = new Wire("wire1");
-var wire2 = new Wire("wire2");
-var wire3 = new Wire("wire3");
-var wire4 = new Wire("wire4");
-var wire5 = new Wire("wire5");
-var wire6 = new Wire("wire6");
-var wire7 = new Wire("wire7");
+﻿using SpiceSharp;
+using SpiceSharp.Components;
+using SpiceSharp.Simulations;
 
-CircuitManager3.ConnectWire(wire1.Name, "VAR_1");
-CircuitManager3.ConnectWire(wire1.Name, "VM1_1");
-CircuitManager3.ConnectWire(wire2.Name, "VAR_2");
-CircuitManager3.ConnectWire(wire2.Name, "VM1_2");
-CircuitManager3.ConnectWire(wire3.Name, "VM1_1");
-CircuitManager3.ConnectWire(wire3.Name, "WM1_1");
-CircuitManager3.ConnectWire(wire4.Name, "VM1_2");
-CircuitManager3.ConnectWire(wire4.Name, "WM1_3");
-CircuitManager3.ConnectWire(wire5.Name, "WM1_2");
-CircuitManager3.ConnectWire(wire5.Name, "AM1_1");
-CircuitManager3.ConnectWire(wire6.Name, "AM1_2");
-CircuitManager3.ConnectWire(wire6.Name, "RH_1");
-CircuitManager3.ConnectWire(wire7.Name, "WM1_3");
-CircuitManager3.ConnectWire(wire7.Name, "RH_2");
 
-Console.WriteLine($"Voltage: {CircuitManager3.SimulationResult["VM1"]}");
-Console.WriteLine($"Current: {CircuitManager3.SimulationResult["AM1"]}");
-Console.WriteLine($"Power: {CircuitManager3.SimulationResult["WM1"]}");
+var ckt = new Circuit(
+    new VoltageSource("V_bias", "Vcc", "0", 12.0),
+    new VoltageSource("Vin", "input", "0", new Sine(0.0, 0.1, 50)),
+    new Capacitor("C1", "input", "base", 10e-6),
+    new Resistor("Rb1", "Vcc", "base", 47e3),
+    new Resistor("Rb2", "base", "0", 10e3),
+    new Bjt("Bjt1").Connect("base", "collector", "emitter", "0"),
+    new Resistor("Rc", "Vcc", "collector", 2.2e3),
+    new Resistor("Re", "emitter", "0", 1e3),
+    new Capacitor("Ce", "emitter", "0", 100e-6),
+    new Capacitor("C2", "collector", "output", 10e-6),
+    new Resistor("Rl", "output", "0", 10e3)
+);
+
+var tran = new Transient("Tran1", 0.01, 0.1);
+
+var timePoints = new List<double>();
+var input = new List<double>();
+var output = new List<double>();
+
+foreach (var _ in tran.Run(ckt)) {
+    timePoints.Add(tran.Time);
+    input.Add(tran.GetVoltage("input"));
+    output.Add(tran.GetVoltage("output"));
+}
+
+Plotter.Plot(timePoints, [input, output]);
